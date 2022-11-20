@@ -80,30 +80,41 @@ float getArcLengthByGaussianQuad(float l, float u, const std::vector<glm::vec3>&
 	return sum * (u - l) / 2;
 }
 
-
-float getTimeByTraversedDistance(float distance, const std::vector<glm::vec3>& points,
+//the document from which I took some mathematics behind it
+//https://www.geometrictools.com/Documentation/MovingAlongCurveSpecifiedSpeed.pdf
+float getTimeByTraversedDistance(float desiredDistance, const std::vector<glm::vec3>& points,
 	const std::vector<float>& lengths)
 {
 	float currentLength = lengths[0];
 	float offset = 0.0f;
+	//search at what the piece of the curve we are
 	for (auto length : lengths)
 	{
-		if (distance < length)
+		if (desiredDistance < length)
 			break;
 
 		currentLength = length;
 		offset += 1.f;
-		distance -= length;
+		desiredDistance -= length;
 	}
 	
-	float t = 0.f + distance / currentLength;
+	float t = 0.f + desiredDistance / currentLength;
 	float lower = 0.f;
 	float upper = 1.f;
 
 	for (int i = 0; i < 100; ++i)
 	{
-		float f = getArcLengthByGaussianQuad(offset, offset + t, points) - distance;
+		//the length by some t minus desired desiredDistance
+		//should be approximately zero, because we want
+		//the speed to be constant
+		//From other perspective:
+		//we can get the approximate traversed length
+		//when we travel along the piece of curve
+		//by some t by calculating integral.
+		float f = getArcLengthByGaussianQuad(offset, offset + t, points) - desiredDistance;
 
+		//That traversed length should be
+		//approximately the same as our desired travel distance (desiredDistance)
 		if (abs(f) < 0.01f)
 			break;
 

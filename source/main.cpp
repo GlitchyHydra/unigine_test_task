@@ -4,8 +4,6 @@
 #include "PathCalculation.h"
 #include "Train.h"
 
-using namespace std;
-
 #define ROADBLOCK_COLOR glm::vec3(0.545f, 0.271f, 0.074f)
 const glm::vec3 RAILROAD_COLOR(1.0f, 1.0f, 1.0f);
 
@@ -175,7 +173,7 @@ int main()
 		 8.0f, -0.375f,  7.0f  // 8
 	};
 
-	vector<glm::vec3> points;
+	std::vector<glm::vec3> points;
 	for (int i = 0; i < 8; i++)
 	{
 		points.emplace_back(path[i * 3], path[i * 3 + 1], path[i * 3 + 2]);

@@ -25,8 +25,8 @@ glm::vec3 getPointAlongAllCurve(const std::vector<glm::vec3>& points, float step
 //calculate the length of all spline pieces;
 void calculateCurveLengths(const std::vector<glm::vec3>& points, std::vector<float>& lengths);
 
-//get t when the object will reach the distance (length) at spline
-float getTimeByTraversedDistance(float distance, const std::vector<glm::vec3>& points, const std::vector<float>& lengths);
+//get t when the object will reach the desiredDistance (length) at spline
+float getTimeByTraversedDistance(float desiredDistance, const std::vector<glm::vec3>& points, const std::vector<float>& lengths);
 
 inline glm::vec3 getPointByDistance(float distance, const std::vector<glm::vec3>& points, const std::vector<float>& lengths)
 {
